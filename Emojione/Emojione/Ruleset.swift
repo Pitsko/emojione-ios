@@ -9063,7 +9063,16 @@ public class Ruleset: RulesetInterface {
 
     public func getShortcodeReplacement(key: String) -> (String, String)? {
         guard let replacement = shortcodeReplace[key] else {
-            let keyNew = key.replacingOccurrences(of: "-", with: "_")
+            guard let keyNew = key.replacingOccurrences(of: "-", with: "_") else {
+                guard let keyNew1 = key.replacingOccurrences(of: "male", with: "man") else {
+                    guard let keyNew2 = key.replacingOccurrences(of: "female", with: "woman") else {
+                        return nil
+                    }
+                    return shortcodeReplace[keyNew2]
+                }
+                return shortcodeReplace[keyNew1]
+
+            }
             
             return shortcodeReplace[keyNew]
         }
