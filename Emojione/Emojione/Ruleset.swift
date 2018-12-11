@@ -9057,10 +9057,21 @@ public class Ruleset: RulesetInterface {
      Returns the shortcode unicode replacement rules
      */
 
-    public func getShortcodeReplace() -> [String: (String, String)] {
+    private func getShortcodeReplace() -> [String: (String, String)] {
         return shortcodeReplace
     }
 
+    public func getShortcodeReplacement(key: String) -> (String, String)? {
+        guard let replacement = shortcodeReplace[key] else {
+            let keyNew = key.replacingOccurrences(of: "_", with: "-")
+            
+            return shortcodeReplace[keyNew]
+        }
+        
+        return replacement
+    }
+
+    
     /// Returns the ascii unicode replacement rules
 
     /**
